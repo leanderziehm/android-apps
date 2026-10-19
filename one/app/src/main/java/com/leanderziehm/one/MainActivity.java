@@ -24,13 +24,19 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import android.widget.ScrollView;
+import android.widget.TextView;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String CHANNEL_ID = "my_channel_id";
     private static final int NOTIFICATION_ID = 1;
     private static final int PERMISSION_REQUEST_CODE = 100;
-    
+
+    private TextView outputText;
+    private ScrollView scrollView;
+    private int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,19 @@ public class MainActivity extends AppCompatActivity {
         createNotificationChannel();
 
         Button notifyButton = findViewById(R.id.notifyButton);
+
+        outputText = findViewById(R.id.outputText);
+        scrollView = findViewById(R.id.scrollView);
+
+        notifyButton.setOnClickListener(v -> {
+            counter++;
+            // Append new line
+            String newLine = "Entry #" + counter + " added at " + System.currentTimeMillis();
+            outputText.append(newLine + "\n");
+
+            // Auto-scroll to bottom so user sees newest entry
+            scrollView.post(() -> scrollView.fullScroll(ScrollView.FOCUS_DOWN));
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -57,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 /// Notifications:
 
 
-    private setupNotificationOnButtonClick(Button notifyButton){
+    private void setupNotificationOnButtonClick(Button notifyButton){
 
         notifyButton.setOnClickListener(v -> {
             // Check and request permission (Android 13+)

@@ -1,6 +1,7 @@
 archive
 opt
 apks
+others
 
 # Gradle files
 .gradle/
