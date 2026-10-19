@@ -34,12 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         notifyButton.setOnClickListener(v -> {
             counter++;
-            // Append new line
             String newLine = "Entry #" + counter + " added at " + System.currentTimeMillis();
-            outputText.append(newLine + "\n");
-
-            // Auto-scroll to bottom so user sees newest entry
-            scrollView.post(() -> scrollView.fullScroll(ScrollView.FOCUS_DOWN));
+            myLog(newLine);
         });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
@@ -49,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
 }
+    private void myLog(String text){
+            outputText.append("myLog:"+ text + "\n");
+            scrollView.post(() -> scrollView.fullScroll(ScrollView.FOCUS_DOWN));
+    }
 
         // notifyButton.setOnClickListener(v -> {
         //     new Thread(() -> {
