@@ -18,6 +18,7 @@ ENV PATH=$PATH:/opt/android-sdk/cmdline-tools/bin:/opt/android-sdk/platform-tool
 WORKDIR /root 
 RUN android
 RUN android create --name="HelloWorld" --application-id=com.example.helloworld --output=./hello-world
+WORKDIR /workdir
 
 # RUN useradd -m -u 1000 container-user
 # USER container-user
