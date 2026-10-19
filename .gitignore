@@ -1,4 +1,6 @@
 archive
+opt
+apks
 
 # Gradle files
 .gradle/
